@@ -120,7 +120,7 @@ html[data-theme="lavande"] .tag-dot { box-shadow: 0 0 0 3px rgba(124,58,237,0.14
 
 
 html, body { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 body {
   font-family: var(--font-sans);
@@ -131,8 +131,11 @@ body {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.55;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
+*, *::before, *::after { box-sizing: border-box; }
+img, svg { max-width: 100%; }
 
 /* ===== Custom cursor — bigger, sharp square outline ===== */
 .cursor-dot, .cursor-ring {
@@ -442,11 +445,15 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  min-width: 0;
 }
+.header-inner > * { min-width: 0; }
 .logo-link {
   display: inline-flex;
   color: var(--fg);
+  flex-shrink: 0;
 }
+.logo-link svg { width: clamp(120px, 18vw, 180px); height: auto; display: block; }
 html[data-theme="lavande"] .logo-link { color: var(--ink); }
 
 .nav {
@@ -562,6 +569,7 @@ html[data-theme="lavande"] .logo-link { color: var(--ink); }
 @media (max-width: 880px) {
   .nav, .lang { display: none; }
   .header-signin { display: none; }
+  .header-inner { gap: 14px; }
 }
 @media (max-width: 640px) {
   .site-header { padding: 16px 0; }
@@ -570,9 +578,15 @@ html[data-theme="lavande"] .logo-link { color: var(--ink); }
   .header-right { gap: 8px; }
   .header-cta { display: none; }
   .nav-burger { display: block; }
+  .header-inner { gap: 10px; }
 }
 @media (min-width: 641px) and (max-width: 880px) {
   .nav-burger { display: block; }
+}
+@media (max-width: 400px) {
+  .header-right { gap: 6px; }
+  .theme-toggle { width: 32px; height: 32px; }
+  .nav-burger { width: 34px; height: 34px; }
 }
 
 /* ===== Hero — two-column, static grid bg ===== */
@@ -1396,4 +1410,30 @@ html[data-theme="lavande"] .footer-brand { color: var(--ink); }
   .mobile-menu { padding: 76px 20px 24px; }
   .mobile-nav a { font-size: 24px; padding: 18px 2px; }
   .mobile-menu-foot { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Overflow safety net — prevent horizontal scroll at any width
+   ============================================================ */
+.hero, .hero-bg, .status-strip, .method-section,
+.tracks-section, .stories-section, .cta-section, .footer {
+  max-width: 100%;
+  overflow-x: clip;
+}
+.hero-grid-layout, .tracks-grid, .method-grid,
+.stories-list, .status-inner, .status-grid,
+.footer-inner, .footer-cols { max-width: 100%; min-width: 0; }
+.lab-panel, .method-panel { max-width: 100%; min-width: 0; }
+/* Tighten hero eyebrow so it never pushes the layout wider than viewport */
+.hero-eyebrow { max-width: 100%; flex-wrap: wrap; }
+
+/* Very narrow viewports — absolute last-resort shrink */
+@media (max-width: 360px) {
+  .container { padding: 0 14px; }
+  .hero-left .display { font-size: clamp(32px, 11vw, 44px); }
+  .h2 { font-size: clamp(26px, 9vw, 36px); }
+  .lab-bar { padding: 8px 10px; }
+  .status-lead { padding: 12px 16px; }
+  .status-cell { padding: 12px 14px; }
+  .footer-cols { grid-template-columns: 1fr; }
 }

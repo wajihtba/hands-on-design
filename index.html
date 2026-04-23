@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="fr" data-theme="ink">
+<html lang="fr" data-theme="ink" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hands-On — Devenez ingénieur logiciel</title>
+  <title>Learn Software Engineering — Hands-On Labs Online | Hands-On</title>
   <link rel="icon" type="image/svg+xml" href="project/assets/hands-on-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="project/styles.css" />
 </head>
 <body>
@@ -26,6 +26,7 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 
+  <script type="text/babel" src="project/components/i18n.jsx"></script>
   <script type="text/babel" src="project/components/logo.jsx"></script>
   <script type="text/babel" src="project/components/effects.jsx"></script>
   <script type="text/babel" src="project/components/cursor.jsx"></script>
@@ -35,7 +36,6 @@
   <script type="text/babel" src="project/components/marquee.jsx"></script>
   <script type="text/babel" src="project/components/method.jsx"></script>
   <script type="text/babel" src="project/components/tracks.jsx"></script>
-  <script type="text/babel" src="project/components/stories.jsx"></script>
   <script type="text/babel" src="project/components/cta-footer.jsx"></script>
   <script type="text/babel" src="project/components/tweaks.jsx"></script>
 
@@ -77,7 +77,6 @@
             <Marquee />
             <Method />
             <Tracks />
-            <Stories />
             <CtaFooter />
           </main>
           <Tweaks defaults={tweaks} onChange={setTweaks} />

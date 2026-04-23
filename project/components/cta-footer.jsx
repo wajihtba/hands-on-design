@@ -1,27 +1,26 @@
-// Final CTA + footer
+// Final CTA + footer — i18n-driven, matches real Hands-On copy.
 function CtaFooter() {
+  const { t } = window.useI18n();
+  const cta = t('cta');
+  const f   = t('footer');
+
   return (
     <>
       <section className="cta-section">
         <div className="container cta-inner">
-          <span className="mono small eyebrow">// Prêt à shipper ?</span>
+          <span className="mono small eyebrow">{cta.eyebrow}</span>
           <h2 className="h2 cta-h">
-            Arrêtez de regarder.<br />
-            <span className="h2-accent">Commencez à construire.</span>
+            {cta.h2_1}<br />
+            <span className="h2-accent">{cta.h2_2}</span>
           </h2>
-          <p className="section-lede">
-            Rejoignez 12 000+ ingénieurs qui ont choisi d'apprendre en faisant.
-            Votre premier projet est gratuit — sans carte bancaire, sans
-            tutoriel, juste du code qui tourne.
-          </p>
+          <p className="section-lede">{cta.lede}</p>
           <div className="cta-buttons">
-            <a href="#" className="btn btn-primary btn-lg mono">
-              <span className="mono">$ git clone votre-carriere</span>
+            <a href="#" className="btn btn-primary btn-lg">
+              <span>{cta.button}</span>
+              <svg className="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
           </div>
-          <div className="cta-micro mono small">
-            Gratuit · Sans carte bancaire · Prêt en 30 secondes
-          </div>
+          <div className="cta-micro mono small">{cta.micro}</div>
         </div>
       </section>
 
@@ -29,31 +28,26 @@ function CtaFooter() {
         <div className="container footer-inner">
           <div className="footer-brand">
             <Logo style={{ width: 160, height: 'auto' }} />
-            <p className="footer-tag mono small">Les outils changent. L'ingénierie reste.</p>
+            <p className="footer-tag mono small">{f.tag}</p>
           </div>
           <div className="footer-cols">
             <div>
-              <div className="footer-h mono small">Produit</div>
-              <a href="#tracks">Tracks</a>
-              <a href="#methode">Méthode</a>
-              <a href="#stories">Témoignages</a>
+              <div className="footer-h mono small">{f.productH}</div>
+              {f.product.map((l, i) => <a key={i} href="#">{l}</a>)}
             </div>
             <div>
-              <div className="footer-h mono small">Entreprise</div>
-              <a href="#">Blog</a>
-              <a href="#">Carrières</a>
-              <a href="mailto:hello@handson.dev">hello@handson.dev</a>
+              <div className="footer-h mono small">{f.companyH}</div>
+              {f.company.map((l, i) => <a key={i} href={i === f.company.length - 1 ? 'mailto:hello@handson.dev' : '#'}>{l}</a>)}
             </div>
             <div>
-              <div className="footer-h mono small">Légal</div>
-              <a href="#">Confidentialité</a>
-              <a href="#">Conditions</a>
+              <div className="footer-h mono small">{f.legalH}</div>
+              {f.legal.map((l, i) => <a key={i} href="#">{l}</a>)}
             </div>
           </div>
         </div>
         <div className="container footer-bottom mono small">
-          <span>© 2026 Hands-on. Tous droits réservés.</span>
-          <span>Construit avec ✳ par des ingénieurs, pour des ingénieurs.</span>
+          <span>{f.copy}</span>
+          <a href="mailto:hello@handson.dev" className="footer-email">{f.by}</a>
         </div>
       </footer>
     </>

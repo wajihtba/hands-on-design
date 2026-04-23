@@ -1456,3 +1456,397 @@ html[data-theme="lavande"] .footer-brand { color: var(--ink); }
   .status-cell { padding: 12px 14px; }
   .footer-cols { grid-template-columns: 1fr; }
 }
+
+
+/* ============================================================
+   i18n / RTL + Arabic typography
+   ============================================================ */
+html[lang="ar"], html[lang="ar"] body {
+  font-family: 'IBM Plex Sans Arabic', 'Geist', -apple-system, sans-serif;
+}
+html[lang="ar"] .mono { font-family: var(--font-mono); }
+html[lang="ar"] .display,
+html[lang="ar"] .h2 { letter-spacing: 0 !important; }
+html[lang="ar"] .display { font-size: clamp(48px, 8.5vw, 112px); line-height: 1.05; }
+html[lang="ar"] .h2 { font-size: clamp(34px, 5.5vw, 64px); line-height: 1.1; }
+/* Mono blocks, code, tables, filenames always LTR */
+html[dir="rtl"] .lab-editor,
+html[dir="rtl"] .lab-results,
+html[dir="rtl"] .lab-table,
+html[dir="rtl"] .stack-marquee,
+html[dir="rtl"] .footer-email,
+html[dir="rtl"] code, html[dir="rtl"] pre { direction: ltr; text-align: left; }
+
+/* Flip button arrows for RTL */
+html[dir="rtl"] .btn-arrow,
+html[dir="rtl"] .lab-mark svg,
+html[dir="rtl"] .header-cta svg,
+html[dir="rtl"] .mobile-nav a svg { transform: scaleX(-1); }
+html[dir="rtl"] .btn:hover .btn-arrow { transform: scaleX(-1) translateX(4px); }
+
+/* Track corner ticks (if tracks ever re-enabled) — mirror to opposite corners */
+html[dir="rtl"] .track-card::before { right: auto; left: 0; border-right: none; border-left: 1px solid var(--primary); }
+html[dir="rtl"] .track-card::after  { left: auto; right: 0; border-left: none; border-right: 1px solid var(--primary); }
+
+/* Hero-eyebrow pulse spacing OK in RTL (gap used, not margin) */
+
+/* Language switcher buttons */
+.lang-btn {
+  background: transparent;
+  border: 0;
+  padding: 0 2px;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  letter-spacing: inherit;
+  color: var(--fg-mute);
+  transition: color .15s ease;
+}
+.lang-btn:hover { color: var(--fg); }
+.lang-btn.is-active { color: var(--fg); }
+.mobile-menu-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 24px;
+  color: var(--fg-mute);
+  letter-spacing: 0.2em;
+}
+
+/* ============================================================
+   Lab panel — PostgreSQL Performance (header, step, table, foot)
+   ============================================================ */
+.lab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  gap: 16px;
+}
+.lab-kicker {
+  color: var(--primary);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.lab-title {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  line-height: 1.2;
+}
+.lab-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--fg-mute);
+  letter-spacing: 0.18em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+html[dir="rtl"] .lab-progress { align-items: flex-start; }
+.lab-progress-num {
+  color: var(--fg);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-bottom: 4px;
+}
+.lab-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in oklch, var(--primary) 6%, var(--bg-2));
+  color: var(--fg);
+  font-size: 13px;
+  letter-spacing: -0.005em;
+}
+.lab-step-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  position: relative;
+}
+.lab-step-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  opacity: 0.45;
+  animation: statusPing 1.8s ease-out infinite;
+}
+.lab-tab { cursor: pointer; transition: color .15s, background .15s; }
+.lab-tab:hover { color: var(--fg); }
+
+.lab-desc {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  color: var(--fg-dim);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.lab-foot {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  background: color-mix(in oklch, var(--bg) 70%, black);
+}
+html[dir="rtl"] .lab-foot { justify-content: flex-start; }
+.lab-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: var(--primary);
+  color: #fff;
+  border: 1px solid var(--primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+  border-radius: 0;
+}
+.lab-mark:hover { background: transparent; color: var(--primary); }
+
+/* Lab results table */
+.lab-results {
+  padding: 14px 20px 18px;
+  background: var(--bg-2);
+  overflow-x: auto;
+}
+.lab-results-meta {
+  color: var(--fg-mute);
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  color: var(--fg);
+}
+.lab-table th, .lab-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+.lab-table th {
+  color: var(--fg-mute);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  border-bottom: 1px solid var(--line-strong);
+}
+.lab-table td.num-col { color: var(--primary); font-variant-numeric: tabular-nums; }
+.lab-table tr:last-child td { border-bottom: none; }
+.lab-table tr:hover td { background: color-mix(in oklch, var(--primary) 4%, transparent); }
+
+html[data-theme="lavande"] .lab-step { background: color-mix(in oklch, var(--primary) 6%, #fff); }
+html[data-theme="lavande"] .lab-results { background: #fff; }
+html[data-theme="lavande"] .lab-foot { background: var(--bg-2); }
+
+/* ============================================================
+   Stack strip — "Labs for every stack"
+   ============================================================ */
+.stack-strip {
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in oklch, var(--bg) 96%, black);
+  overflow: hidden;
+}
+.stack-head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.stack-marquee {
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.stack-track {
+  display: flex;
+  gap: 16px;
+  padding-right: 16px;
+  animation: stackScroll 40s linear infinite;
+  white-space: nowrap;
+  flex-shrink: 0;
+  will-change: transform;
+}
+@keyframes stackScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.stack-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  color: var(--fg);
+  font-size: 13px;
+  letter-spacing: -0.005em;
+  background: color-mix(in oklch, var(--bg-2) 90%, transparent);
+  transition: border-color .2s, background .2s;
+}
+.stack-pill:hover { border-color: var(--primary); background: color-mix(in oklch, var(--primary) 6%, transparent); }
+.stack-pill-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Myth section — "6 months to [X] is a myth."
+   ============================================================ */
+.myth-section { padding: 140px 0 120px; position: relative; }
+.myth-headline { position: relative; }
+.myth-word-wrap {
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  color: var(--primary);
+  padding: 0 0.12em;
+  min-width: 11ch;
+  text-align: left;
+  border-bottom: 2px solid var(--primary);
+}
+html[dir="rtl"] .myth-word-wrap { text-align: right; }
+.myth-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .45s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
+}
+.myth-word.is-active {
+  position: static;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.myth-word:not(.is-active) {
+  position: absolute;
+  left: 0.12em;
+  top: 0;
+}
+html[dir="rtl"] .myth-word:not(.is-active) { left: auto; right: 0.12em; }
+
+.myth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  margin-top: 72px;
+}
+.myth-card {
+  padding: 40px 32px;
+  border-right: 1px solid var(--line);
+  transition: background .25s ease;
+}
+.myth-card:last-child { border-right: none; }
+html[dir="rtl"] .myth-card { border-right: none; border-left: 1px solid var(--line); }
+html[dir="rtl"] .myth-card:last-child { border-left: none; }
+.myth-card:hover { background: color-mix(in oklch, var(--primary) 4%, transparent); }
+.myth-num { color: var(--primary); margin-bottom: 24px; font-size: 11px; letter-spacing: 0.1em; }
+.myth-card-title { font-size: 22px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.15; margin: 0 0 12px; }
+.myth-card-body { font-size: 14px; color: var(--fg-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 880px) {
+  .myth-grid { grid-template-columns: 1fr; }
+  .myth-card { border-right: none !important; border-left: none !important; border-bottom: 1px solid var(--line); }
+  .myth-card:last-child { border-bottom: none; }
+}
+
+/* ============================================================
+   Long-run comparison
+   ============================================================ */
+.longrun-section { padding: 120px 0; background: color-mix(in oklch, var(--bg) 94%, black); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.longrun-compare {
+  max-width: 880px;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  background: color-mix(in oklch, var(--bg-2) 80%, transparent);
+}
+.longrun-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  color: var(--fg-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border-bottom: 1px solid var(--line);
+}
+.longrun-head-l, .longrun-head-r { padding: 14px 24px; }
+.longrun-head-r { color: var(--primary); border-left: 1px solid var(--line); }
+html[dir="rtl"] .longrun-head-r { border-left: none; border-right: 1px solid var(--line); }
+.longrun-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+}
+.longrun-row:last-child { border-bottom: none; }
+.longrun-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+.longrun-good { border-left: 1px solid var(--line); color: var(--fg); }
+html[dir="rtl"] .longrun-good { border-left: none; border-right: 1px solid var(--line); }
+.longrun-bad { color: var(--fg-mute); }
+.longrun-bad .longrun-text { text-decoration: line-through; text-decoration-color: var(--fg-mute); text-decoration-thickness: 1px; }
+.longrun-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 26px; height: 26px;
+  border: 1px solid var(--line-strong);
+  flex-shrink: 0;
+}
+.longrun-icon-x { color: var(--fg-mute); }
+.longrun-icon-check { color: var(--primary); border-color: var(--primary); background: color-mix(in oklch, var(--primary) 8%, transparent); }
+
+@media (max-width: 720px) {
+  .longrun-head, .longrun-row { grid-template-columns: 1fr; }
+  .longrun-head-r, .longrun-good { border-left: none !important; border-right: none !important; border-top: 1px solid var(--line); }
+  .longrun-cell { padding: 18px 20px; font-size: 15px; }
+  html[dir="rtl"] .longrun-head-r, html[dir="rtl"] .longrun-good { border-top: 1px solid var(--line); }
+}
+
+/* Footer email link */
+.footer-email { color: var(--primary); }
+.footer-email:hover { text-decoration: underline; }
+
+/* ============================================================
+   RTL-specific spacing fixes
+   ============================================================ */
+html[dir="rtl"] .hero-left { text-align: right; }
+html[dir="rtl"] .hero-left .hero-cta { justify-content: flex-start; }
+html[dir="rtl"] .hero-left .hero-stats .stat { text-align: right; }
+html[dir="rtl"] .stat { border-right: none; border-left: 1px solid var(--line); }
+html[dir="rtl"] .stat:last-child { border-left: none; }
+html[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+html[dir="rtl"] .nav a::after { transform-origin: right; }
+
+/* Responsive for the new lab panel */
+@media (max-width: 720px) {
+  .lab-header { padding: 14px 16px 10px; }
+  .lab-title { font-size: 16px; }
+  .lab-step { padding: 10px 16px; font-size: 12px; }
+  .lab-desc { padding: 12px 16px; font-size: 12px; }
+  .lab-mark { padding: 8px 14px; font-size: 12.5px; }
+  .lab-results { padding: 12px 14px; }
+  .lab-table th, .lab-table td { padding: 6px 8px; font-size: 11.5px; }
+}

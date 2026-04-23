@@ -147,11 +147,12 @@ body {
 *, *::before, *::after { box-sizing: border-box; }
 img, svg { max-width: 100%; }
 
-/* Hide custom cursor + disable magnetic on touch devices — prevents stuck
-   transforms that can push buttons outside their container after a tap */
-@media (pointer: coarse), (hover: none) {
+/* Hide custom cursor + disable magnetic on touch devices or small viewports.
+   Covers real touch hardware AND desktop DevTools mobile-mode testing. */
+@media (pointer: coarse), (hover: none), (max-width: 880px) {
   .cursor-dot, .cursor-ring { display: none !important; }
   .magnetic-inner { transform: none !important; }
+  html.has-custom-cursor, html.has-custom-cursor * { cursor: auto !important; }
 }
 
 /* ===== Custom cursor — bigger, sharp square outline ===== */

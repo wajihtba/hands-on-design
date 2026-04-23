@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr" data-theme="ink">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hands-On — Devenez ingénieur logiciel</title>
+  <link rel="icon" type="image/svg+xml" href="project/assets/hands-on-logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="project/styles.css" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    window.__TWEAK_DEFAULTS = {
+      "theme": "ink",
+      "accent": "#A855F7",
+      "grid": "off",
+      "font": "geist"
+    };
+  </script>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="project/components/logo.jsx"></script>
+  <script type="text/babel" src="project/components/effects.jsx"></script>
+  <script type="text/babel" src="project/components/cursor.jsx"></script>
+  <script type="text/babel" src="project/components/spotlight.jsx"></script>
+  <script type="text/babel" src="project/components/header.jsx"></script>
+  <script type="text/babel" src="project/components/hero.jsx"></script>
+  <script type="text/babel" src="project/components/marquee.jsx"></script>
+  <script type="text/babel" src="project/components/method.jsx"></script>
+  <script type="text/babel" src="project/components/tracks.jsx"></script>
+  <script type="text/babel" src="project/components/stories.jsx"></script>
+  <script type="text/babel" src="project/components/cta-footer.jsx"></script>
+  <script type="text/babel" src="project/components/tweaks.jsx"></script>
+
+  <script type="text/babel">
+    function applyTweaks(t) {
+      document.documentElement.setAttribute('data-theme', t.theme || 'ink');
+      const root = document.documentElement.style;
+      if (t.accent) {
+        root.setProperty('--primary', t.accent);
+        root.setProperty('--primary-hi', '#8B6FFF');
+      }
+      const grid = document.querySelector('.hero-grid');
+      if (grid) grid.style.display = t.grid === 'off' ? 'none' : '';
+      const sg = document.querySelector('.spotlight-grid');
+      if (sg) sg.style.display = t.grid === 'off' ? 'none' : '';
+      const fonts = {
+        geist: ["'Geist', -apple-system, sans-serif", "'Geist Mono', ui-monospace, monospace"],
+        tight: ["'Inter Tight', -apple-system, sans-serif", "'JetBrains Mono', ui-monospace, monospace"],
+        plex:  ["'IBM Plex Sans', -apple-system, sans-serif", "'IBM Plex Mono', ui-monospace, monospace"],
+        grotesk: ["'Space Grotesk', -apple-system, sans-serif", "'JetBrains Mono', ui-monospace, monospace"],
+      };
+      const f = fonts[t.font] || fonts.geist;
+      root.setProperty('--font-sans', f[0]);
+      root.setProperty('--font-mono', f[1]);
+    }
+
+    function App() {
+      const [tweaks, setTweaks] = React.useState(window.__TWEAK_DEFAULTS);
+      React.useEffect(() => { applyTweaks(tweaks); }, [tweaks]);
+      window.useReveal();
+
+      return (
+        <>
+          <Spotlight />
+          <Cursor />
+          <Header />
+          <main>
+            <Hero />
+            <Marquee />
+            <Method />
+            <Tracks />
+            <Stories />
+            <CtaFooter />
+          </main>
+          <Tweaks defaults={tweaks} onChange={setTweaks} />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

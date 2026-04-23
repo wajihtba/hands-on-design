@@ -1,6 +1,6 @@
-// Lab status strip — replaces the tech-stack marquee.
-// Presents the platform as a live system: current regions, latency, uptime,
-// mentor presence. Columns rotate subtly so it feels alive without scrolling.
+// Next-cohort admissions strip — replaces the out-of-context "server metrics" band.
+// Factual, brand-relevant: cohort date, seats, admission timeline, format, duration, funding.
+// Keeps the same sharp editorial layout + live pulse for visual continuity.
 
 const { useState: useLSState, useEffect: useLSEffect } = React;
 
@@ -12,27 +12,24 @@ function Marquee() {
     return () => clearInterval(id);
   }, []);
 
-  // Small numeric jitter so a few cells "feel" live
-  const jit = (base, spread, i) => {
-    const seed = (tick + i * 7) % 5;
-    return +(base + (seed - 2) * spread).toFixed(base < 10 ? 2 : 0);
-  };
+  // Seats ticker: small, infrequent decrement so it "feels" alive without being dishonest
+  const seats = Math.max(18, 24 - (tick % 6));
 
   const cells = [
-    { label: 'REGION',  value: 'eu-west-3',        sub: 'paris · zone-a' },
-    { label: 'UPTIME',  value: '99.98%',           sub: 'last 90 days' },
-    { label: 'LATENCY', value: `${jit(42, 2, 0)}ms`, sub: 'p99 runner', live: true },
-    { label: 'LABS',    value: '142',              sub: 'production-grade' },
-    { label: 'MENTORS', value: `${jit(27, 2, 1)} online`, sub: 'avg reply 14m', live: true },
-    { label: 'STACK',   value: 'k8s · rust · pg',  sub: 'reviewed weekly' },
+    { label: 'COHORTE',    value: '17 Juin 2026',   sub: 'inscriptions ouvertes' },
+    { label: 'PLACES',     value: `${seats} / 120`,  sub: 'restantes', live: true },
+    { label: 'ADMISSION',  value: '3 sem.',          sub: 'test + entretien' },
+    { label: 'FORMAT',     value: '100% à distance', sub: 'live · async · labs' },
+    { label: 'DURÉE',      value: '12–16 sem.',      sub: 'selon le track' },
+    { label: 'FINANCEMENT',value: 'OPCO · CPF',       sub: 'éligible' },
   ];
 
   return (
-    <section className="status-strip" aria-label="État de la plateforme">
+    <section className="status-strip" aria-label="Prochaine cohorte">
       <div className="container status-inner">
         <div className="status-lead mono small">
           <span className="status-pulse" />
-          <span>LIVE · plateforme</span>
+          <span>INSCRIPTIONS · cohorte Juin</span>
         </div>
         <div className="status-grid">
           {cells.map((c, i) => (
